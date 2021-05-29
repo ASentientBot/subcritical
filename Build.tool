@@ -3,7 +3,6 @@ cd "$(dirname "$0")"
 
 NAME=Subcritical
 IN_PATH=Inject.m
-EXTRA_FLAGS="-framework Foundation -framework UIKit"
 TARGET=com.apple.springboard
 VERSION=1
 
@@ -19,7 +18,7 @@ rm -rf $packagePath
 mkdir -p $installPath
 mkdir -p $metaPath
 
-xcrun -sdk iphoneos clang -dynamiclib -arch armv7 -arch arm64 -F $PWD -framework CydiaSubstrate $EXTRA_FLAGS $IN_PATH -o $dylibPath
+xcrun -sdk iphoneos clang -dynamiclib -fmodules -arch armv7 -arch arm64 -F $PWD -framework CydiaSubstrate $IN_PATH -o $dylibPath
 codesign -f -s - $dylibPath
 
 /usr/libexec/PlistBuddy -c "add Filter:Bundles array" $plistPath

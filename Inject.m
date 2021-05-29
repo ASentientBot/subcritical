@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import Foundation;
 #import <CydiaSubstrate/CydiaSubstrate.h>
 
 BOOL wasCritical=false;
@@ -14,11 +14,11 @@ MSHookInterface(SBUIController,FakeSBUIController,NSObject)
 
 @implementation FakeSBUIController
 
--(void)updateBatteryState:(id)state
+-(void)updateBatteryState:(NSMutableDictionary*)state
 {
 	if(((NSNumber*)state[@"AtCriticalLevel"]).boolValue)
 	{
-		state[@"AtCriticalLevel"]=[NSNumber numberWithBool:false];
+		state[@"AtCriticalLevel"]=@false;
 		
 		if(!wasCritical)
 		{
