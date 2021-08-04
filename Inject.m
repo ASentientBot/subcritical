@@ -6,8 +6,9 @@ BOOL wasCritical=false;
 void showAlert(NSString* message)
 {
 	Class AlertClass=NSClassFromString(@"SBDismissOnlyAlertItem");
-	id alertItem=[[AlertClass alloc] initWithTitle:@"subcritical 🔋" body:message];
+	NSObject* alertItem=[[AlertClass alloc] initWithTitle:@"subcritical 🔋" body:message];
 	[AlertClass activateAlertItem:alertItem];
+	alertItem.release;
 }
 
 MSHookInterface(SBUIController,FakeSBUIController,NSObject)
